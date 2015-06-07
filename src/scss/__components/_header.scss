@@ -1,0 +1,15 @@
+.header {
+    width: 100%;
+    background-color: #EEE;
+
+    @include mq($to: smalldesktop) {
+
+        &.show-menu {
+            .navigation {
+                .links {
+                    width: 200px;
+                }
+            }
+        }
+    }
+}

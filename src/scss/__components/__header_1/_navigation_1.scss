@@ -1,0 +1,82 @@
+
+.navigation-1 {
+    background-color: #666;
+    
+    .links {
+        background-color: #666;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0px;
+        transition: width 0.3s ease;
+
+        
+        > ul {
+            overflow: auto;
+             > li {
+                list-style: none;
+
+                > a {
+                    @include font(22, 22);
+                    color: #FFF;
+                    padding: 20px 30px;
+                    display: block;
+
+                    &.show-links + .sub-links {
+                        height: 62*4px + 40px; // 62
+                        transition: height 0.3s 0.1s ease;
+                    }
+                }
+            }
+        }
+
+        .sub-links {
+            position: relative;
+            background-color: #555;
+            top: 0;
+            left: 0;
+            height: 0px;
+            overflow: hidden;
+            width: 100%;
+            transition: height 0s ease;
+
+            > ul {
+                 > li {
+                    list-style: none;
+                    padding: 20px 30px;
+                }
+            }
+        }
+
+        @include mq($from: smalldesktop) {
+            position: relative;
+            width: auto;
+
+            > ul {
+                float: left;
+                 > li {
+                    float: left;
+
+                    > a {
+                        &.menu-icon {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .sub-links {
+                background-color: #555;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                top: 62px;
+                
+
+                > ul {
+                    padding: 10px 0;
+                }
+            }
+        }
+    }
+}

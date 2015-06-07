@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Responsive Header Template</title>
+
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+        <script src="js/lib/jquery.js"></script>
+
+    </head>
+    <body>
+        
+        <header class="header-1">
+            <div class="logo">
+                <div class="structure">
+                    <a href="index.html" class="brand">LOGO</a>
+                    <a href="#" class="menu-icon"><div>M</div></a>
+                </div>       
+            </div>
+
+            <nav class="navigation-1">
+                <div class="structure">
+                    <div class="links cf">
+                        <ul>
+                            <li><a href="#" class="menu-icon">X</a></li>
+                            <li><a href="#" class="nav-link">Home</a></li>
+                            <li><a href="#" class="nav-link">About</a></li>
+                            <li>
+                                <a href="#" class="nav-link" data-page="services-page">Services</a>
+                                <div class="sub-links">
+                                    <ul>
+                                        <li><a href="#">Services Sub Links</a></li>
+                                        <li><a href="#">Services Sub Links</a></li>
+                                        <li><a href="#">Services Sub Links</a></li>
+                                        <li><a href="#">Services Sub Links</a></li>
+                                        <li><a href="#">Services Sub Links</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">History</a>
+                                <div class="sub-links">
+                                    <ul>
+                                        <li><a href="#">History Sub Links</a></li>
+                                        <li><a href="#">History Sub Links</a></li>
+                                        <li><a href="#">History Sub Links</a></li>
+                                        <li><a href="#">History Sub Links</a></li>
+                                        <li><a href="#">History Sub Links</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#" class="nav-link">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <!-- <script data-main="js/main" src="js/vendor/require.js"></script> -->
+
+        <script type="text/javascript">
+
+            var $header = $(".header-1"),
+                $menuIcon = $header.find(".menu-icon"),
+                $linksContainer = $header.find(".links"),
+                $navLinks = $linksContainer.find(".nav-link");
+
+
+                $menuIcon.on("click", function (e) {
+                    if ($header.hasClass("show-menu")) {
+                        $header.removeClass("show-menu");
+                    } else {
+                        $header.addClass("show-menu");
+                    }
+                })
+
+            $navLinks.on("click", function (e) {
+                var b = $linksContainer.find(e.currentTarget);
+
+                if (b.hasClass("show-links")) {
+                    b.removeClass("show-links");
+                } else {
+                    $navLinks.removeClass("show-links");
+                    b.addClass("show-links");
+                }
+            });
+
+
+
+        </script>
+    </body>
+</html>

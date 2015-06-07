@@ -1,0 +1,180 @@
+/* *********************************************************
+ *
+ *
+ * GRID 
+ *
+ *
+ * *********************************************************/
+
+@mixin create_grid(
+    $parent: 'structure',
+    $width: 1280px,
+    $gutter: 0px,
+    $margin: 0px,
+    $value: 0, // dynamic value - number or string
+    $breakpoint: "tablet"
+    ) { // defualt values if parameters not specified
+
+
+    @if type-of($value) == 'number' { 
+        $columns: $value;
+    } @else { // value is string
+        $className: $value;
+        $columns: 2; // needs a defualt value to pass the if statement
+    }
+
+    $gutter: $gutter * 2; // px
+    $structureWidth: $width - $gutter; // px
+    $gutterWidth: -getGutterWidth($gutter, $width);
+    $marginWidth: -getMarginWidth($margin, $structureWidth);
+
+    .#{$parent} {
+        margin: 0 auto;
+        width: 100% - $gutterWidth;
+        max-width: $structureWidth;
+
+        &.grid {
+            max-width: $structureWidth + $margin;
+            width: (100% - $gutterWidth) + ($marginWidth * 2);
+        }
+
+        &:after {
+            @extend .cf;
+        }
+
+
+        @if $columns > 1 {
+
+            // ----------------------------------------------------
+            // TYPE STRUCTURE GRID
+            // ----------------------------------------------------
+
+            @if type-of($breakpoint) == 'string' {
+
+                // all col elements 100%
+                [class*='col-'] {
+                  margin: 0 $marginWidth ($marginWidth*2);
+                  width: -getWidth($columns, $columns, $marginWidth);
+                }
+
+                @include mq($from: $breakpoint) {
+                    // Let's float these cols
+                    [class*='col-'] {
+                      float: left;
+                    }
+
+                    // Inline Block
+                    &.i-b {
+                        font-size: 0;
+
+                        [class*='col-'] {
+                            float: none;
+                            display: inline-block;
+                            vertical-align: top;
+                        }
+                    }
+                    @include calcColumns($columns, $marginWidth);
+                }
+            }
+
+            // ----------------------------------------------------
+            // TYPE ADAPTIVE GRID
+            // ----------------------------------------------------
+
+            @if type-of($breakpoint) == 'list' {
+
+                .#{$className} {
+                  margin: 0 $marginWidth ($marginWidth*2);
+                  width: -getWidth($columns, $columns, $marginWidth);
+                }
+
+                @each $bp in $breakpoint {
+                    $breakpoint-name:  nth($bp, 1);
+                    $breakpoint-column: nth($bp, 2);
+
+
+                    @include mq($from: $breakpoint-name) {
+
+                        @if $breakpoint-name == "tablet" {
+                            // Let's float these cols
+                            .#{$className}  {
+                              float: left;
+                            }
+
+                            // Inline Block
+                            &.i-b {
+                                font-size: 0;
+
+                                .#{$className}  {
+                                    float: none;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                }
+                            }
+                        }
+                        @include calcResponsiveColumns($className, $marginWidth, $breakpoint-column);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* *********************************************************
+ *
+ *
+ * MIXINS
+ *
+ *
+ * *********************************************************/
+
+
+@mixin calcColumns($numberOfColumns, $margin) {
+
+    @for $i from 1 through $numberOfColumns {
+
+        // divide the number of columns into the increment number and look for a whole number 
+        $num: $numberOfColumns / $i;
+        $num2: round($numberOfColumns / $i);
+
+        $string: "";
+
+        @if $num == $num2 {
+            $string: ".col-1-#{$num}"
+        }
+
+        .col-#{$i}-#{$numberOfColumns}, #{$string} {
+            width: -getWidth($i, $numberOfColumns, $margin);
+
+        }
+    }
+}
+
+@mixin calcResponsiveColumns($className, $margin, $col) {
+    .#{$className} {
+        width: -getWidth(1, $col, $margin);
+    }
+}
+
+
+/* *********************************************************
+ *
+ *
+ * FUNCTIONS
+ *
+ *
+ * *********************************************************/
+
+@function -getGutterWidth($gutter, $width) {
+    @return ($gutter / $width) * 100%; // %
+}
+
+@function -getMarginWidth($margin, $width) {
+    @return ((($margin / 2) / $width) * 100%); // %
+}
+    
+
+@function -getWidth($columnCount, $totalColumns, $margin) {
+    $columnWidth: (100% - (($margin * 2) * $totalColumns)) / $totalColumns;
+    @return ($columnCount * $columnWidth) + (($margin * 2) * ($columnCount - 1));
+}

@@ -1,0 +1,46 @@
+.header-3 {
+    width: 100%;
+    background-color: #EEE;
+
+    @include mq($to: smalldesktop) {
+
+        &.show-menu {
+            .navigation-3 {
+                .sub-links-container {
+                    height: auto;
+                }
+            }
+        }
+    }
+
+    .logo {
+        background-color: #DDD;
+
+        a {
+           @include font(32, 32);
+           padding: 20px 30px;
+           
+            &.brand {
+                float: left;
+            }
+
+            &.menu-icon {
+                float: right;
+                > div {
+                    background-color: #000;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        @include mq($from: smalldesktop) {
+            a {
+                &.menu-icon {
+                    display: no
+                }
+            }        
+        }
+
+    }
+}

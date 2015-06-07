@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Responsive Header Template</title>
+
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+        <script src="js/lib/jquery.js"></script>
+
+    </head>
+    <body>
+        
+        <header class="header-3">
+            <div class="logo">
+                <div class="structure">
+                    <a href="index.html" class="brand">LOGO</a>
+                    <a href="#" class="menu-icon"><div>M</div></a>
+                </div>       
+            </div>
+
+            <nav class="navigation-3">
+                <div class="structure">
+                    <div class="links cf">
+                        <ul>
+                            <li><a href="#" class="nav-link">Home</a></li>
+                            <li><a href="#" class="nav-link">About</a></li>
+                            <li><a href="#" class="nav-link" data-sub="desktop" data-name="services">Services</a></li>
+                            <li><a href="#" class="nav-link" data-sub="desktop" data-name="history">History</a></li>
+                            <li><a href="#" class="nav-link">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sub-links-container">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link" data-sub="mobile" data-name="services">Services</a>
+                    <ul class="sub-links sub-services">
+                        <li><a href="#">Services Sub Links</a></li>
+                        <li><a href="#">Services Sub Links</a></li>
+                        <li><a href="#">Services Sub Links</a></li>
+                        <li><a href="#">Services Sub Links</a></li>
+                        <li><a href="#">Services Sub Links</a></li>
+                    </ul>
+                    <a href="#" class="nav-link history" data-sub="mobile" data-name="history">History</a>
+                    <ul class="sub-links sub-history">
+                        <li><a href="#">History Sub Links</a></li>
+                        <li><a href="#">History Sub Links</a></li>
+                        <li><a href="#">History Sub Links</a></li>
+                        <li><a href="#">History Sub Links</a></li>
+                        <li><a href="#">History Sub Links</a></li>
+                    </ul>
+                    <a href="#" class="nav-link">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+
+        <!-- <script data-main="js/main" src="js/vendor/require.js"></script> -->
+
+        <script type="text/javascript">
+
+            var $header = $(".header-3"),
+                $subContainer = $header.find(".sub-links-container"),
+                $navLinks = $header.find(".nav-link"),
+                $menuIcon = $header.find(".menu-icon");
+
+
+
+            $menuIcon.on("click", function (e) {
+                if ($header.hasClass("show-menu")) {
+                    $header.removeClass("show-menu");
+                } else {
+                    $header.addClass("show-menu");
+                }
+            });
+
+            $navLinks.on("click", function (e) {
+
+                var display = e.currentTarget.getAttribute("data-sub"),
+                    subLinks = e.currentTarget.getAttribute("data-name"),
+                    classname = "";
+
+                if (display) {
+                    e.preventDefault();
+                } else {
+                    $subContainer.find(".sub-links").removeClass("show");
+                }
+
+                switch (display) {
+                    case "desktop":
+
+                        if ($subContainer.find(".sub-" + subLinks).hasClass("show")) {
+                            $subContainer.find(".sub-links").removeClass("show");
+                        } else {
+                            $subContainer.find(".sub-links").removeClass("show");
+                            $subContainer.find(".sub-" + subLinks).addClass("show");
+                        }
+
+                    break;
+
+                    case "mobile":
+                        
+
+                        if ($subContainer.find(".sub-" + subLinks).hasClass("show")) {
+                            console.log("DONT SHOW")
+                            $subContainer.find(".sub-links").removeClass("show");
+                        } else {
+                            console.log("SHOW")
+                            $subContainer.find(".sub-links").removeClass("show");
+                            $subContainer.find(".sub-" + subLinks).addClass("show");
+                        }
+
+                        
+                    break;
+                }
+
+            });
+
+
+
+        </script>
+    </body>
+</html>

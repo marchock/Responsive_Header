@@ -1,0 +1,111 @@
+
+.navigation-3 {
+    background-color: #666;
+
+    .structure {
+        position: relative;
+        z-index: 1;
+    }
+
+    .sub-links-container {
+        position: relative;
+        background-color: #555;
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+
+        > a {
+            display: block;
+            @include font(22, 22);
+            color: #FFF;
+            padding: 20px 30px;
+            background-color: #666;
+
+        }
+
+        @include mq($from: smalldesktop) {
+            height: auto;
+            > a {
+                display: none;
+            }
+            
+        }
+
+
+        > ul {
+            overflow: hidden;
+            height: 0;
+             > li {
+                list-style: none;
+                padding: 20px 30px;
+            }
+
+            &.show {
+                height: auto;
+            }
+        }
+
+        .sub-links {
+            background-color: #555;
+            //position: absolute;
+            width: 100%;
+            left: 0;
+            //top: 62px;
+            
+
+            > ul {
+                padding: 10px 0;
+            }
+        }
+    }
+
+    .links {
+        background-color: #666;
+        overflow: hidden;
+        height: 0;
+        transition: height 0.3s ease;
+
+        
+        > ul {
+            overflow: auto;
+             > li {
+                list-style: none;
+
+                > a {
+                    @include font(22, 22);
+                    color: #FFF;
+                    padding: 20px 30px;
+                    display: block;
+
+                    &.show-links + .sub-links {
+                        height: 62*4px + 40px; // 62
+                        transition: height 0.3s 0.1s ease;
+                    }
+                }
+            }
+        }
+
+
+
+        @include mq($from: smalldesktop) {
+            height: auto;
+            position: relative;
+            overflow: visible;
+
+            > ul {
+                float: left;
+                 > li {
+                    float: left;
+
+                    > a {
+                        &.menu-icon {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+
+        }
+    }
+}
